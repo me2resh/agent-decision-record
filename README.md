@@ -1,5 +1,7 @@
 # Agent Decision Records (AgDR)
 
+[![SkillShield](https://skillshield.io/api/v1/badge/1daff16083a7aeed.svg)](https://skillshield.io/report/1daff16083a7aeed)
+
 **A standard for documenting technical decisions made by AI coding agents.**
 
 AgDR extends the proven [Architecture Decision Record](https://github.com/joelparkerhenderson/architecture-decision-record) (ADR) format for AI-assisted software development. When AI agents make technical choices—selecting libraries, choosing patterns, designing architecture—those decisions need the same rigor and traceability as human decisions.
@@ -28,7 +30,22 @@ AgDR solves this by requiring agents to document decisions in a structured, huma
 
 ## Quick Start
 
-### Using Claude Code
+### Install as Claude Code Plugin
+
+```bash
+/plugin marketplace add me2resh/agent-decision-record
+/plugin install agent-decision-record@agent-decision-record
+```
+
+Then use:
+
+```bash
+/agent-decision-record:decide which testing framework to use
+```
+
+### Using Claude Code (manual)
+
+Copy [commands/decide.md](commands/decide.md) to your project's `.claude/commands/decide.md`:
 
 ```bash
 /decide which testing framework to use
@@ -145,7 +162,7 @@ your-project/
 
 ### Claude Code
 
-The `/decide` skill triggers structured decision-making: [tools/claude-code/decide.md](tools/claude-code/decide.md)
+Install as a plugin for the namespaced `/agent-decision-record:decide` command, or copy [commands/decide.md](commands/decide.md) to your project's `.claude/commands/` for the shorter `/decide` name. See [Quick Start](#quick-start) for details.
 
 ### Codex
 
@@ -212,6 +229,10 @@ Organizations using AgDR:
 | [ApexScript](https://apexscript.com) | AI-first software consultancy |
 
 *Want to be listed? Open a PR!*
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for release history.
 
 ## Contributing
 

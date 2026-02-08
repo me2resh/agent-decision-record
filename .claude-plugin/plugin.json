@@ -1,0 +1,20 @@
+{
+  "name": "agent-decision-record",
+  "description": "Structured decision-making for AI coding agents. Creates auditable Agent Decision Records (AgDR) when technical choices are made — selecting libraries, patterns, or architecture.",
+  "version": "1.1.0",
+  "author": {
+    "name": "me2resh",
+    "email": "hello@me2resh.com"
+  },
+  "homepage": "https://github.com/me2resh/agent-decision-record",
+  "repository": "https://github.com/me2resh/agent-decision-record",
+  "license": "CC-BY-4.0",
+  "keywords": [
+    "decision-records",
+    "adr",
+    "agdr",
+    "architecture",
+    "documentation",
+    "ai-agents"
+  ]
+}
