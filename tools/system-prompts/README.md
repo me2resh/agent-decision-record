@@ -50,6 +50,7 @@ Create a markdown file at docs/agdr/AgDR-{NNNN}-{slug}.md with:
 For tools with native rule systems, use the dedicated integrations instead:
 
 - [Claude Code](../claude-code/) — `/decide` slash command
+- [Codex](../codex/) — `SKILL.md` skill folder (`agdr-decide`)
 - [Cursor](../cursor/) — `.cursor/rules/agdr.mdc`
 - [GitHub Copilot](../copilot/) — `.github/copilot-instructions.md`
 - [Windsurf](../windsurf/) — `.windsurf/rules/agdr.md`
