@@ -6,7 +6,7 @@ AgDR extends the proven [Architecture Decision Record](https://github.com/joelpa
 
 ## Why AgDR?
 
-AI coding agents (Claude Code, GitHub Copilot, Cursor, Windsurf, etc.) increasingly make technical decisions autonomously. Without documentation:
+AI coding agents (Claude Code, Codex, GitHub Copilot, Cursor, Windsurf, etc.) increasingly make technical decisions autonomously. Without documentation:
 
 - **Decisions are invisible** - No record of why the agent chose React over Vue
 - **Context is lost** - Next session starts fresh with no memory
@@ -32,6 +32,12 @@ AgDR solves this by requiring agents to document decisions in a structured, huma
 
 ```bash
 /decide which testing framework to use
+```
+
+### Using Codex
+
+```text
+$agdr-decide which testing framework to use
 ```
 
 ### Using System Prompts (any AI)
@@ -93,7 +99,7 @@ See [agdr-template.md](agdr-template.md) for the full template.
 |-------|-------------|---------|
 | `id` | Unique identifier | `AgDR-0001` |
 | `timestamp` | ISO-8601 with time | `2026-01-30T18:45:00Z` |
-| `agent` | Agent that made the decision | `claude-code`, `copilot`, `cursor` |
+| `agent` | Agent that made the decision | `claude-code`, `codex`, `copilot`, `cursor` |
 | `model` | Model identifier | `claude-opus-4-5-20251101` |
 | `trigger` | What initiated the decision | `user-prompt`, `hook`, `automation` |
 | `status` | Decision status | `proposed`, `executed`, `superseded` |
@@ -130,6 +136,7 @@ your-project/
 | Tool | Format | Location |
 |------|--------|----------|
 | **Claude Code** | `/decide` skill | [tools/claude-code/](tools/claude-code/) |
+| **Codex** | `SKILL.md` skill folder | [tools/codex/](tools/codex/) |
 | **Cursor** | `.cursor/rules/agdr.mdc` | [tools/cursor/](tools/cursor/) |
 | **GitHub Copilot** | `.github/copilot-instructions.md` + `.instructions.md` | [tools/copilot/](tools/copilot/) |
 | **Windsurf** | `.windsurf/rules/agdr.md` | [tools/windsurf/](tools/windsurf/) |
@@ -139,6 +146,10 @@ your-project/
 ### Claude Code
 
 The `/decide` skill triggers structured decision-making: [tools/claude-code/decide.md](tools/claude-code/decide.md)
+
+### Codex
+
+Codex skill folder for AgDR decision gating and file generation: [tools/codex/](tools/codex/)
 
 ### Cursor
 
