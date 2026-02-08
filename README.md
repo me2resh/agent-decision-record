@@ -1,5 +1,7 @@
 # Agent Decision Records (AgDR)
 
+[![SkillShield](https://skillshield.io/api/v1/badge/1daff16083a7aeed.svg)](https://skillshield.io/report/1daff16083a7aeed)
+
 **A standard for documenting technical decisions made by AI coding agents.**
 
 AgDR extends the proven [Architecture Decision Record](https://github.com/joelparkerhenderson/architecture-decision-record) (ADR) format for AI-assisted software development. When AI agents make technical choices—selecting libraries, choosing patterns, designing architecture—those decisions need the same rigor and traceability as human decisions.
