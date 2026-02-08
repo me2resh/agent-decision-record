@@ -28,7 +28,22 @@ AgDR solves this by requiring agents to document decisions in a structured, huma
 
 ## Quick Start
 
-### Using Claude Code
+### Install as Claude Code Plugin
+
+```bash
+/plugin marketplace add me2resh/agent-decision-record
+/plugin install agent-decision-record@agent-decision-record
+```
+
+Then use:
+
+```bash
+/agent-decision-record:decide which testing framework to use
+```
+
+### Using Claude Code (manual)
+
+Copy [commands/decide.md](commands/decide.md) to your project's `.claude/commands/decide.md`:
 
 ```bash
 /decide which testing framework to use
@@ -129,7 +144,7 @@ your-project/
 
 | Tool | Format | Location |
 |------|--------|----------|
-| **Claude Code** | `/decide` skill | [tools/claude-code/](tools/claude-code/) |
+| **Claude Code** | Plugin + `/decide` command | [commands/](commands/) |
 | **Cursor** | `.cursor/rules/agdr.mdc` | [tools/cursor/](tools/cursor/) |
 | **GitHub Copilot** | `.github/copilot-instructions.md` + `.instructions.md` | [tools/copilot/](tools/copilot/) |
 | **Windsurf** | `.windsurf/rules/agdr.md` | [tools/windsurf/](tools/windsurf/) |
@@ -138,7 +153,7 @@ your-project/
 
 ### Claude Code
 
-The `/decide` skill triggers structured decision-making: [tools/claude-code/decide.md](tools/claude-code/decide.md)
+Install as a plugin for the namespaced `/agent-decision-record:decide` command, or copy [commands/decide.md](commands/decide.md) to your project's `.claude/commands/` for the shorter `/decide` name. See [Quick Start](#quick-start) for details.
 
 ### Cursor
 
@@ -201,6 +216,10 @@ Organizations using AgDR:
 | [ApexScript](https://apexscript.com) | AI-first software consultancy |
 
 *Want to be listed? Open a PR!*
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for release history.
 
 ## Contributing
 
