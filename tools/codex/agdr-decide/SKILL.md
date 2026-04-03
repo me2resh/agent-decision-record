@@ -7,6 +7,16 @@ description: Enforce Agent Decision Record (AgDR) workflow in Codex. Use when ma
 
 Follow this process before implementation whenever the decision is non-trivial.
 
+## Decision Gate Constraints
+
+Before creating an AgDR, resolve these constraints:
+
+- **Do not** document a decision before understanding the real problem
+- **Do not** accept the first option — at least 2 viable alternatives must be compared
+- **Do not** list pros/cons you haven't verified — base claims on evidence
+- **Do not** write "better" or "faster" without specifics — use measurable criteria
+- **Do not** proceed without naming the tradeoff you're accepting
+
 ## 1. Parse the Decision Topic
 
 Extract the specific decision from the user request and restate it clearly.

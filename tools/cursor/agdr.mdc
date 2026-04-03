@@ -23,6 +23,16 @@ Before writing any code, scan your planned response for these patterns. If any m
 
 **Test:** If someone asked "why did you choose X over Y?" and you'd need to explain trade-offs, that's a decision. Document it.
 
+## Decision Gate Constraints
+
+Before creating an AgDR, resolve these constraints:
+
+- **Do not** document a decision before understanding the real problem
+- **Do not** accept the first option — at least 2 viable alternatives must be compared
+- **Do not** list pros/cons you haven't verified — base claims on evidence
+- **Do not** write "better" or "faster" without specifics — use measurable criteria
+- **Do not** proceed without naming the tradeoff you're accepting
+
 ## When to Create an AgDR
 
 - Library/framework selection (e.g., "use Zustand over Redux")
