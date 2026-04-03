@@ -159,6 +159,7 @@ your-project/
 | **Windsurf** | `.windsurf/rules/agdr.md` | [tools/windsurf/](tools/windsurf/) |
 | **Any AI** | System prompt | [tools/system-prompts/](tools/system-prompts/) |
 | **Git** | Pre-commit hook | [tools/git-hooks/](tools/git-hooks/) |
+| **Review** | Checklist | [agdr-review.md](agdr-review.md) |
 
 ### Claude Code
 
