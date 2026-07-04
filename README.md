@@ -134,7 +134,7 @@ See [agdr-template.md](agdr-template.md) for the full and short templates, and [
 | `id` | Unique identifier | `AgDR-0001` |
 | `timestamp` | ISO-8601 with time | `2026-01-30T18:45:00Z` |
 | `agent` | Agent that made the decision | `claude-code`, `codex`, `copilot`, `cursor` |
-| `model` | Model identifier | `claude-opus-4-5-20251101` |
+| `model` | Model identifier | `{model-id}` (the model actually in use, e.g. `claude-opus-4-5`) |
 | `trigger` | What initiated the decision | `user-prompt`, `hook`, `automation` |
 | `status` | Decision status | `proposed`, `executed`, `superseded` |
 
