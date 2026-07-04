@@ -1,3 +1,8 @@
+<!-- Canonical source for the /decide process. skills/decide/SKILL.md mirrors the
+     Trigger/Process/Rules sections below (Claude Code skills need self-contained
+     instructions and can't just point at another file) — keep the two in sync.
+     tools/claude-code/README.md links here rather than keeping its own copy. -->
+
 # /decide - Technical Decision Gate
 
 Forces structured decision-making and creates an auditable Agent Decision Record (AgDR).

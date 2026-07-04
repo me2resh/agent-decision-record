@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "Agent Decision Records (AgDR) — a standard for documenting technical decisions made by AI coding agents",
-    "version": "1.1.0"
+    "version": "1.2.0"
   },
   "plugins": [
     {
       "name": "agent-decision-record",
       "source": ".",
       "description": "Enforces structured decision-making by creating Agent Decision Records (AgDR) when AI agents make technical choices like selecting libraries, patterns, or architecture.",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": {
         "name": "me2resh",
         "email": "hello@me2resh.com"

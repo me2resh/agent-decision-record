@@ -1,0 +1,21 @@
+name: Spec question or gap
+description: Report an ambiguity, gap, or proposed change to the AgDR spec, template, or tool integrations
+title: "[Spec] "
+labels: ["spec"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for questions or proposed changes to [SPEC.md](../../SPEC.md), the templates, or a `tools/` integration. For a new tool integration entirely, open a PR directly instead — see [CONTRIBUTING.md](../../CONTRIBUTING.md#2-create-tool-integrations).
+  - type: textarea
+    id: context
+    attributes:
+      label: What's ambiguous, missing, or worth changing?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed resolution (if you have one)
+    validations:
+      required: false

@@ -3,6 +3,10 @@ name: decide
 description: Enforces structured decision-making by creating Agent Decision Records (AgDR). Use when comparing libraries, choosing patterns, making architecture choices, or any "should I use X or Y" moment.
 ---
 
+<!-- Mirrors commands/decide.md's Trigger/Process/Rules sections. Skill files
+     must be self-contained (no cross-file references at invocation time), so
+     this can't just point at the other file — if you change one, change both. -->
+
 # /decide - Technical Decision Gate
 
 Forces structured decision-making and creates an auditable Agent Decision Record (AgDR).

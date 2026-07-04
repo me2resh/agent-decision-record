@@ -1,6 +1,6 @@
 # AgDR Template
 
-Use this template when documenting AI agent decisions.
+Use this template when documenting AI agent decisions. For the normative rules behind every field and section below — required vs. optional, enum values, body-structure requirements — see [SPEC.md](SPEC.md), the single source of truth. This file exists to give you copy-pasteable starting points.
 
 ## Full Template
 
@@ -80,70 +80,23 @@ status: executed
 Chosen: **{Option}**, because {justification}.
 ```
 
-## Field Reference
+## Field Reference, Naming, and the Y-Statement
 
-### Metadata Fields
+These are normative rules, not template-specific advice — see [SPEC.md](SPEC.md) for:
 
-| Field | Required | Description |
-|-------|----------|-------------|
-| `id` | Yes | Format: `AgDR-NNNN` (zero-padded, e.g., `AgDR-0001`) |
-| `timestamp` | Yes | ISO-8601 format with timezone: `2026-01-30T18:45:00Z` |
-| `agent` | Yes | Identifier for the AI agent: `claude-code`, `copilot`, `cursor`, `windsurf` |
-| `model` | Yes | Specific model used: `claude-opus-4-5-20251101`, `gpt-4-turbo` |
-| `session` | No | Session identifier if available (for traceability) |
-| `trigger` | Yes | What initiated: `user-prompt`, `hook`, `automation` |
-| `status` | Yes | Current state: `proposed`, `executed`, `superseded`, `deprecated` |
-| `supersedes` | No | ID of AgDR this replaces (if any) |
+- [§1 File location and naming](SPEC.md#1-file-location-and-naming) — the `AgDR-{NNNN}-{slug}.md` convention
+- [§2 Frontmatter fields](SPEC.md#2-frontmatter-fields) — required vs. optional, with the `trigger` and `status` enums
+- [§5 Body structure](SPEC.md#5-body-structure) and [§6 The Y-statement, good vs. too vague](SPEC.md#6-the-y-statement-good-vs-too-vague)
 
-### Status Values
+## When to Use the Short Template
 
-| Status | Meaning |
-|--------|---------|
-| `proposed` | Decision documented but not yet implemented |
-| `executed` | Decision made and implemented |
-| `superseded` | Replaced by a newer AgDR (link in `supersedes`) |
-| `deprecated` | No longer valid, not replaced |
+Use the short template when:
+- Only 2-3 options were considered
+- Context is already well understood
+- Consequences are straightforward
+- No related artifacts to link
 
-### Trigger Values
-
-| Trigger | When Used |
-|---------|-----------|
-| `user-prompt` | User explicitly asked to make a decision |
-| `hook` | Pre-commit or CI hook detected a decision |
-| `automation` | Automated pipeline triggered the decision |
-| `self-initiated` | Agent proactively documented during coding |
-
-## Naming Convention
-
-File name format: `AgDR-{NNNN}-{slug}.md`
-
-- `NNNN`: Zero-padded number (0001, 0002, ...)
-- `slug`: Lowercase, hyphenated summary (max 50 chars)
-
-Examples:
-- `AgDR-0001-use-vitest-for-testing.md`
-- `AgDR-0002-jwt-for-authentication.md`
-- `AgDR-0015-postgres-over-mysql.md`
-
-## The Y-Statement
-
-The Y-statement is a one-line summary that captures the essence of the decision:
-
-```
-In the context of [situation],
-facing [concern],
-I decided [decision]
-to achieve [goal],
-accepting [tradeoff].
-```
-
-### Examples
-
-**Good:**
-> In the context of a React Native app, facing slow list rendering with 1000+ items, I decided to use FlashList to achieve 60fps scrolling, accepting the learning curve of a new API.
-
-**Too vague:**
-> In the context of our app, facing performance issues, I decided to use a better library to achieve better performance, accepting some tradeoffs.
+Use the full template for complex decisions with multiple stakeholders or significant consequences.
 
 ## Tips for Writing Good AgDRs
 

@@ -1,0 +1,36 @@
+name: Link Check
+
+# Markdown link check (see #9). Blocking: a documentation-only standard is
+# only as good as the links it sends people to, and this repo cross-links
+# heavily between README.md, SPEC.md, agdr-template.md, and tools/*.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Catch link rot in the wild even when nobody's opened a PR.
+    - cron: "0 6 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  lychee:
+    name: Check markdown links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Link Checker
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --config .lychee.toml
+            --no-progress
+            './**/*.md'
+            '.github/**/*.md'
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

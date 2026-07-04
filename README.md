@@ -1,10 +1,15 @@
 # Agent Decision Records (AgDR)
 
 [![SkillShield](https://skillshield.io/api/v1/badge/1daff16083a7aeed.svg)](https://skillshield.io/report/1daff16083a7aeed)
+[![Validate AgDRs](https://github.com/me2resh/agent-decision-record/actions/workflows/validate-agdr.yml/badge.svg)](https://github.com/me2resh/agent-decision-record/actions/workflows/validate-agdr.yml)
+[![Link Check](https://github.com/me2resh/agent-decision-record/actions/workflows/link-check.yml/badge.svg)](https://github.com/me2resh/agent-decision-record/actions/workflows/link-check.yml)
+[![Changelog Lockstep](https://github.com/me2resh/agent-decision-record/actions/workflows/changelog-lockstep.yml/badge.svg)](https://github.com/me2resh/agent-decision-record/actions/workflows/changelog-lockstep.yml)
 
 **A standard for documenting technical decisions made by AI coding agents.**
 
 AgDR extends the proven [Architecture Decision Record](https://github.com/joelparkerhenderson/architecture-decision-record) (ADR) format for AI-assisted software development. When AI agents make technical choices—selecting libraries, choosing patterns, designing architecture—those decisions need the same rigor and traceability as human decisions.
+
+This README is the onboarding tour. [SPEC.md](SPEC.md) is the normative reference — every required field, enum value, and body-structure rule, all in one place, with a JSON Schema and a validator CI runs on every PR.
 
 ## Why AgDR?
 
@@ -74,7 +79,7 @@ https://github.com/me2resh/agent-decision-record
 id: AgDR-0001
 timestamp: 2026-01-30T18:45:00Z
 agent: claude-code
-model: claude-opus-4-5-20251101
+model: {model-id}
 trigger: user-prompt
 status: executed
 ---
@@ -106,11 +111,23 @@ significantly faster test execution while maintaining Jest API compatibility.
 - May need workarounds for some Jest plugins
 ```
 
+### Confirm it
+
+Don't just trust that the output above is well-formed — check it. Clone this repo (or vendor `schema/` + `scripts/validate-agdr.js` into yours) and run the same validator CI runs on every PR here:
+
+```bash
+git clone https://github.com/me2resh/agent-decision-record.git && cd agent-decision-record
+npm install
+node scripts/validate-agdr.js /path/to/your-project/docs/agdr/AgDR-0001-*.md
+```
+
+A passing run confirms your first AgDR has valid frontmatter, a real Y-statement, and the required sections — the same bar the AgDR's own `examples/` are held to.
+
 ## AgDR Template
 
-See [agdr-template.md](agdr-template.md) for the full template.
+See [agdr-template.md](agdr-template.md) for the full and short templates, and [SPEC.md](SPEC.md) for the normative spec — every required field, enum value, and body-structure rule lives there as the single source of truth.
 
-### Required Fields
+### Required Fields (summary)
 
 | Field | Description | Example |
 |-------|-------------|---------|
@@ -121,11 +138,15 @@ See [agdr-template.md](agdr-template.md) for the full template.
 | `trigger` | What initiated the decision | `user-prompt`, `hook`, `automation` |
 | `status` | Decision status | `proposed`, `executed`, `superseded` |
 
+Full field reference (including optional `session`/`supersedes` and the enum definitions): [SPEC.md §2](SPEC.md#2-frontmatter-fields).
+
 ### The Y-Statement
 
 Every AgDR must include a one-line summary following the Y-statement format:
 
 > In the context of **[situation]**, facing **[concern]**, I decided **[decision]** to achieve **[goal]**, accepting **[tradeoff]**.
+
+Good vs. too-vague examples: [SPEC.md §6](SPEC.md#6-the-y-statement-good-vs-too-vague).
 
 ## Directory Structure
 
@@ -147,6 +168,24 @@ your-project/
 - Each project has its own ID sequence
 - PRs can reference AgDRs in the same repo
 - History preserved if project is forked
+
+## Validation & CI
+
+A standard that asks agents for "rigor and traceability" should be able to check its own homework. This repo runs three checks on every PR (see [.github/workflows/](.github/workflows/)):
+
+| Workflow | Checks | Blocking? |
+|----------|--------|-----------|
+| [`validate-agdr.yml`](.github/workflows/validate-agdr.yml) | Every `examples/AgDR-*.md` against [`schema/agdr.schema.json`](schema/agdr.schema.json) — required frontmatter fields, `trigger`/`status` enums, `id`-matches-filename, unique IDs, Y-statement present, required sections present. Runs [`scripts/validate-agdr.js`](scripts/validate-agdr.js). | Yes |
+| [`link-check.yml`](.github/workflows/link-check.yml) | Every markdown link in the repo resolves ([lychee](https://github.com/lycheeverse/lychee)). | Yes |
+| [`changelog-lockstep.yml`](.github/workflows/changelog-lockstep.yml) | If `.claude-plugin/plugin.json`'s version changes, [`CHANGELOG.md`](CHANGELOG.md) must gain a matching `## [x.y.z]` entry in the same PR. Runs [`scripts/check-changelog-lockstep.js`](scripts/check-changelog-lockstep.js). | Yes |
+
+Run any of them locally before opening a PR:
+
+```bash
+npm install
+npm run validate              # validate-agdr.js against examples/
+npm run validate:changelog    # check-changelog-lockstep.js against origin/main
+```
 
 ## Tools & Integrations
 
