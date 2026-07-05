@@ -1,0 +1,17 @@
+{
+  "name": "agent-decision-record",
+  "version": "1.2.0",
+  "private": true,
+  "description": "Self-validation tooling for the Agent Decision Record (AgDR) standard.",
+  "type": "commonjs",
+  "scripts": {
+    "validate": "node scripts/validate-agdr.js",
+    "validate:changelog": "node scripts/check-changelog-lockstep.js origin/main HEAD"
+  },
+  "license": "CC-BY-4.0",
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "js-yaml": "^4.1.0"
+  }
+}

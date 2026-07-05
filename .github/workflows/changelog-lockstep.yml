@@ -1,0 +1,29 @@
+name: Changelog Lockstep
+
+# Traceability check for this repo's OWN release process (see #9): if a PR
+# bumps .claude-plugin/plugin.json's version, CHANGELOG.md must gain a
+# matching entry in the same PR. Catches exactly the drift already present
+# in this repo — the Codex integration and SkillShield badge shipped without
+# either a version bump or a changelog entry.
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  lockstep:
+    name: Manifest version <-> CHANGELOG.md entry
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: node scripts/check-changelog-lockstep.js "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}"

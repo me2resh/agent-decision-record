@@ -2,14 +2,23 @@
 
 ## Installation
 
-Copy `decide.md` to your project's `.claude/commands/` directory:
+The canonical command file lives at [`commands/decide.md`](../../commands/decide.md) in the repo root (that's also what the Claude Code plugin installs — see [Quick Start](../../README.md#quick-start)). Copy it to your project's `.claude/commands/` directory:
 
 ```bash
 mkdir -p /path/to/your/project/.claude/commands
-cp decide.md /path/to/your/project/.claude/commands/decide.md
+curl -o /path/to/your/project/.claude/commands/decide.md \
+  https://raw.githubusercontent.com/me2resh/agent-decision-record/main/commands/decide.md
+```
+
+Or, if you've cloned this repo:
+
+```bash
+cp commands/decide.md /path/to/your/project/.claude/commands/decide.md
 ```
 
 This registers `/decide` as a slash command in Claude Code.
+
+(This directory previously shipped its own copy of `decide.md`. It was dropped in favor of the single canonical copy at `commands/decide.md` — two copies of the same command body was exactly the drift trap AgDR itself exists to catch.)
 
 ## Usage
 

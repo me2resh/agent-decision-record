@@ -1,0 +1,32 @@
+name: Validate AgDRs
+
+# Self-validation — the backbone the AgDR standard was missing (see #9). Runs
+# the JSON-Schema + structural validator (scripts/validate-agdr.js) against
+# every example AgDR on every push and PR, so a contribution (or one of the
+# repo's own examples) can never silently regress the format it's meant to
+# demonstrate.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate examples/ against schema/agdr.schema.json
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run validate

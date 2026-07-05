@@ -1,0 +1,21 @@
+# Config for the link-check CI job (.github/workflows/link-check.yml).
+# See https://github.com/lycheeverse/lychee for the full option reference.
+
+# GitHub and third-party badge services routinely 429 unauthenticated /
+# high-volume CI runners. Retry with backoff before treating that as a
+# broken link.
+max_retries = 3
+retry_wait_time = 5
+
+exclude = [
+  # CI status badges are dynamic. The PR that *introduces* a workflow won't
+  # have a run/page for it yet on GitHub's side — checking these here would
+  # make adding CI a self-inflicted link-check failure.
+  '^https://github\.com/me2resh/agent-decision-record/actions/workflows/',
+  # Third-party badge service — decorative, not a doc link worth gating CI on.
+  '^https://skillshield\.io/',
+]
+
+exclude_path = [
+  "node_modules",
+]

@@ -2,7 +2,7 @@
 id: AgDR-0006
 timestamp: 2026-01-30T17:00:00Z
 agent: claude-code
-model: claude-opus-4-5-20251101
+model: claude-opus-4-5
 trigger: user-prompt
 status: executed
 ---
