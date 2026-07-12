@@ -19,6 +19,7 @@ jobs:
   validate:
     name: Validate examples/ against schema/agdr.schema.json
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
 
