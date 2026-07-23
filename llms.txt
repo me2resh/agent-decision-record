@@ -1,0 +1,27 @@
+# Agent Decision Record (AgDR)
+
+> A standard for documenting technical decisions made by AI coding agents — an ADR variant for the age of AI-assisted development. Each AgDR captures the options an agent considered, the decision it made, and the rationale, in a compact format that both humans and agents can read and generate.
+
+## Specification
+
+- [Specification (SPEC.md)](https://github.com/me2resh/agent-decision-record/blob/main/SPEC.md): the AgDR format definition — required fields, semantics, and conventions.
+- [JSON schema](https://github.com/me2resh/agent-decision-record/blob/main/schema/agdr.schema.json): the machine-validatable schema for a single AgDR record.
+
+## Templates
+
+- [Full template](https://github.com/me2resh/agent-decision-record/blob/main/agdr-template.md): the complete AgDR template.
+- [Short template](https://github.com/me2resh/agent-decision-record/blob/main/agdr-template-short.md): the compact one-screen variant.
+
+## Examples
+
+- [Example AgDRs](https://github.com/me2resh/agent-decision-record/tree/main/examples): six worked decision records — auth-provider choice, DynamoDB partition-key design, data-migration strategy, MVVM/clean architecture, a GitHub Actions release workflow, and an image-loading library choice.
+
+## Tool integrations
+
+- [tools/](https://github.com/me2resh/agent-decision-record/tree/main/tools): drop-in integrations that get an agent writing AgDRs in your workflow — Claude Code, Codex, Copilot, Cursor, Windsurf, git hooks, and system prompts.
+
+## Optional
+
+- [README](https://github.com/me2resh/agent-decision-record/blob/main/README.md): human-facing overview and quick start.
+- [Contributing guide](https://github.com/me2resh/agent-decision-record/blob/main/CONTRIBUTING.md): how to propose changes and add tool integrations.
+- [Changelog](https://github.com/me2resh/agent-decision-record/blob/main/CHANGELOG.md): version history.
