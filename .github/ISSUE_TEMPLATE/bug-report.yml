@@ -1,0 +1,55 @@
+name: Bug report
+description: Report something broken or behaving incorrectly in the AgDR spec, templates, or a tools/ integration
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. For a **question or proposed change** to [SPEC.md](../../SPEC.md), the templates, or a `tools/` integration, use the **Spec question or gap** form instead. Please don't paste secrets or private data.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the bug — what went wrong.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Minimal steps (and a minimal example or command) that trigger the bug.
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: input
+    id: area
+    attributes:
+      label: Affected area
+      description: Which part? e.g. SPEC.md, a specific template, a `tools/` integration, or the CLI.
+    validations:
+      required: false
+  - type: textarea
+    id: environment
+    attributes:
+      label: Version / environment
+      description: Repo version or commit SHA, OS, and any relevant tool/integration versions.
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or error output
+      description: Paste any relevant error output — it will be formatted as code automatically.
+      render: shell
+    validations:
+      required: false
