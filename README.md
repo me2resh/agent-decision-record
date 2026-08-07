@@ -86,7 +86,7 @@ AgDR is a plain standard, not a product — **you don't need ApexYard or any fra
 2. **The schema** — [`schema/agdr.schema.json`](schema/agdr.schema.json), so frontmatter is machine-checkable.
 3. **The check** — vendor [`scripts/validate-agdr.js`](scripts/validate-agdr.js) (or the [`validate-agdr.yml`](.github/workflows/validate-agdr.yml) workflow) so CI rejects malformed records.
 
-**Pin a version.** Those three files are a snapshot of a versioned standard, so take them from a tagged [release](https://github.com/me2resh/agent-decision-record/releases) rather than from `main` — otherwise a later spec change quietly moves the bar your CI enforces, on a commit you never chose:
+**Pin a version.** Those three files are a snapshot of a versioned standard, so take them from a tagged [release](https://github.com/me2resh/agent-decision-record/releases) rather than from `main` — otherwise nothing records *which* version you adopted, and the next person to re-vendor quietly picks up a different one:
 
 ```bash
 git clone --branch v1.2.0 --depth 1 https://github.com/me2resh/agent-decision-record.git
