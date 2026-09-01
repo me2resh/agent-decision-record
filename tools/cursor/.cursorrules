@@ -14,6 +14,14 @@
 # - Making an architectural choice → STOP, document decision first
 # - Adding a new dependency → STOP, document decision first
 
+# DECISION GATE CONSTRAINTS
+# Before creating an AgDR, resolve these constraints:
+# - Do not document a decision before understanding the real problem
+# - Do not accept the first option — at least 2 viable alternatives must be compared
+# - Do not list pros/cons you haven't verified — base claims on evidence
+# - Do not write "better" or "faster" without specifics — use measurable criteria
+# - Do not proceed without naming the tradeoff you're accepting
+
 # TEST: If someone asked "why did you choose X over Y?" and you'd need to explain
 # trade-offs, that's a decision. Document it.
 
