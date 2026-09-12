@@ -7,38 +7,36 @@
   "trigger": "user-prompt",
   "status": "executed",
   "title": "Use Vitest for unit testing",
-  "yStatement": "In the context of replacing API key auth in a serverless stack, facing the need for managed user identity, I decided to use AWS Cognito to achieve native API integration, accepting hosted UI limitations and vendor lock-in.",
+  "yStatement": "In the context of a new TypeScript and Vite monorepo, facing a need for fast feedback, I decided to use Vitest to achieve fast test runs, accepting a smaller plugin ecosystem.",
   "context": [
-    "The backend uses AWS serverless services.",
-    "The extension needs login, token refresh and user identity."
+    "The repository uses Vite for its build pipeline.",
+    "The team needs fast local test feedback."
   ],
   "optionsConsidered": [
     {
-      "name": "AWS Cognito",
+      "name": "Jest",
       "pros": [
-        "Native API integration",
-        "Managed security"
+        "Mature ecosystem"
       ],
       "cons": [
-        "Hosted UI limitations",
-        "AWS lock-in"
+        "Slower ESM and Vite setup"
       ]
     },
     {
-      "name": "Auth0",
+      "name": "Vitest",
       "pros": [
-        "Polished login UI"
+        "Native Vite integration",
+        "Fast test runs"
       ],
       "cons": [
-        "External service",
-        "Custom authorizer work"
+        "Smaller plugin ecosystem"
       ]
     }
   ],
-  "decision": "Use Vitest for its native Vite integration and fast feedback.",
+  "decision": "Use Vitest because it integrates with the existing Vite pipeline and provides fast feedback.",
   "consequences": [
-    "The application remains on one cloud provider.",
-    "Moving away later requires replacing the authorizer and token format."
+    "Tests use a Jest-compatible API.",
+    "Some Jest-only plugins may require alternatives."
   ],
   "extensions": {}
 }
