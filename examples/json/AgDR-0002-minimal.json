@@ -1,0 +1,44 @@
+{
+  "specVersion": "1.2",
+  "id": "AgDR-0002",
+  "timestamp": "2026-02-04T12:00:00Z",
+  "agent": "claude-code",
+  "model": "claude-opus-4-5",
+  "trigger": "user-prompt",
+  "status": "executed",
+  "title": "Use Vitest for unit testing",
+  "yStatement": "In the context of replacing API key auth in a serverless stack, facing the need for managed user identity, I decided to use AWS Cognito to achieve native API integration, accepting hosted UI limitations and vendor lock-in.",
+  "context": [
+    "The backend uses AWS serverless services.",
+    "The extension needs login, token refresh and user identity."
+  ],
+  "optionsConsidered": [
+    {
+      "name": "AWS Cognito",
+      "pros": [
+        "Native API integration",
+        "Managed security"
+      ],
+      "cons": [
+        "Hosted UI limitations",
+        "AWS lock-in"
+      ]
+    },
+    {
+      "name": "Auth0",
+      "pros": [
+        "Polished login UI"
+      ],
+      "cons": [
+        "External service",
+        "Custom authorizer work"
+      ]
+    }
+  ],
+  "decision": "Use Vitest for its native Vite integration and fast feedback.",
+  "consequences": [
+    "The application remains on one cloud provider.",
+    "Moving away later requires replacing the authorizer and token format."
+  ],
+  "extensions": {}
+}

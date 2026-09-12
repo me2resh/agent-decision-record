@@ -103,3 +103,11 @@ The following are style advice, not requirements the validator enforces:
 ## Change history
 
 Substantive changes to this spec (new required fields, new enum values, tightened body requirements) are breaking for existing validators and MUST be logged in [CHANGELOG.md](CHANGELOG.md).
+
+## 9. Proposed JSON serialisation (non-normative)
+
+Issue #23 proposes a JSON serialisation of the same AgDR information model. This proposal does not change the current Markdown representation or its conformance requirements.
+
+The Markdown and JSON representations share identity, provenance, trigger, status, context, alternatives, decision, rationale and consequences. They must not introduce different decision semantics. Implementations may support Markdown only, JSON only, or both.
+
+The draft schema is available at [`schema/agdr-json.schema.json`](schema/agdr-json.schema.json). The examples in [`examples/json/`](examples/json/) are validated in CI. The JSON proposal remains experimental until the field mapping, conversion behavior and round-trip limits are adopted by this specification.

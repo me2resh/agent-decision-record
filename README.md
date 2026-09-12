@@ -319,3 +319,9 @@ You are free to share and adapt this material with appropriate credit.
 ---
 
 Created by [me2resh](https://github.com/me2resh)
+
+## JSON serialisation proposal
+
+Issue [#23](https://github.com/me2resh/agent-decision-record/issues/23) tracks a proposed JSON serialisation of the existing AgDR information model. It is an additional representation for APIs, agents and tooling. Markdown remains valid and supported.
+
+The draft schema is [`schema/agdr-json.schema.json`](schema/agdr-json.schema.json), with examples under [`examples/json/`](examples/json/). Run `npm run validate:json` to validate those examples.
