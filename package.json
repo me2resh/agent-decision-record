@@ -5,8 +5,9 @@
   "description": "Self-validation tooling for the Agent Decision Record (AgDR) standard.",
   "type": "commonjs",
   "scripts": {
-    "validate": "node scripts/validate-agdr.js",
-    "validate:changelog": "node scripts/check-changelog-lockstep.js origin/main HEAD"
+    "validate": "node scripts/validate-agdr.js && node scripts/validate-agdr-json.js",
+    "validate:changelog": "node scripts/check-changelog-lockstep.js origin/main HEAD",
+    "validate:json": "node scripts/validate-agdr-json.js"
   },
   "license": "CC-BY-4.0",
   "devDependencies": {
