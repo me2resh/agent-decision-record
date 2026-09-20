@@ -5,6 +5,11 @@
   "type": "module",
   "bin": { "agdr-validate": "./cli.js" },
   "exports": { ".": { "types": "./index.d.ts", "import": "./index.js" } },
-  "files": ["index.js", "index.d.ts", "cli.js", "README.md"],
+  "files": ["index.js", "index.d.ts", "cli.js", "README.md", "schema/agdr.schema.json"],
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "js-yaml": "^4.1.0"
+  },
   "engines": { "node": ">=20" }
 }
