@@ -6,6 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "validate": "node scripts/validate-agdr.js",
+    "validate:package": "node --test packages/validator/test.js",
     "validate:changelog": "node scripts/check-changelog-lockstep.js origin/main HEAD"
   },
   "license": "CC-BY-4.0",
