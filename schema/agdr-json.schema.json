@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/me2resh/agent-decision-record/schema/agdr-json.schema.json",
+  "title": "Agent Decision Record JSON serialisation",
+  "description": "JSON representation of the AgDR information model. It has the same meaning as the Markdown representation.",
+  "type": "object",
+  "required": ["mediaType", "specVersion", "id", "timestamp", "agent", "model", "trigger", "status", "title", "yStatement", "optionsConsidered", "decision"],
+  "additionalProperties": false,
+  "properties": {
+    "mediaType": { "const": "application/vnd.agdr+json" },
+    "specVersion": { "type": "string", "minLength": 1 },
+    "id": { "type": "string", "pattern": "^AgDR-[0-9]{4,}$" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "agent": { "type": "string", "minLength": 1 },
+    "model": { "type": "string", "minLength": 1 },
+    "session": { "type": "string" },
+    "trigger": { "type": "string", "enum": ["user-prompt", "hook", "automation", "self-initiated"] },
+    "status": { "type": "string", "enum": ["proposed", "executed", "superseded", "deprecated"] },
+    "supersedes": { "type": "string", "pattern": "^AgDR-[0-9]{4,}$" },
+    "title": { "type": "string", "minLength": 1 },
+    "yStatement": { "type": "string", "minLength": 1 },
+    "context": { "type": "array", "items": { "type": "string" } },
+    "optionsConsidered": { "type": "array", "minItems": 2, "items": { "type": "object", "required": ["name", "pros", "cons"], "additionalProperties": false, "properties": { "name": { "type": "string", "minLength": 1 }, "pros": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }, "cons": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } } } } },
+    "decision": { "type": "string", "minLength": 1 },
+    "consequences": { "type": "array", "items": { "type": "string" } },
+    "artifacts": { "type": "array", "items": { "type": "string" } },
+    "related": { "type": "array", "items": { "type": "object", "required": ["rel", "type", "id"], "additionalProperties": false, "properties": { "rel": { "type": "string", "minLength": 1 }, "type": { "type": "string", "minLength": 1 }, "id": { "type": "string", "minLength": 1 }, "href": { "type": "string", "format": "uri" } } } },
+    "extensions": { "type": "object", "additionalProperties": true }
+  }
+}

@@ -14,7 +14,7 @@ AI coding agents (Claude Code, Codex, Copilot, Cursor, Windsurf) now make conseq
 
 **An Agent Decision Record (AgDR) is that missing record.** It's a small, structured Markdown file — context, the options weighed, the decision, and the trade-off accepted — written by the agent *at the moment it makes the call* and committed alongside the code it governs. Think [Architecture Decision Record](https://github.com/joelparkerhenderson/architecture-decision-record), but authored by the agent in real time, carrying the metadata (model, trigger, timestamp) an audit actually needs.
 
-It's an open standard: a Markdown template, a [JSON Schema](schema/agdr.schema.json), and a [validator](scripts/validate-agdr.js) CI runs on every PR. Drop it into any repo, with any agent — [no framework required](#adopt-in-5-minutes). This README is the tour; **[SPEC.md](SPEC.md)** is the normative reference for every field, enum, and body rule.
+It's an open standard: a Markdown representation, a JSON serialisation, schemas for both, and validators that CI runs on every PR. Drop it into any repo, with any agent — [no framework required](#adopt-in-5-minutes). This README is the tour; **[SPEC.md](SPEC.md)** is the normative reference for every field, enum, representation, and body rule.
 
 ## What an AgDR looks like
 
@@ -191,7 +191,7 @@ A standard that asks agents for "rigor and traceability" should be able to check
 
 | Workflow | Checks | Blocking? |
 |----------|--------|-----------|
-| [`validate-agdr.yml`](.github/workflows/validate-agdr.yml) | Every `examples/AgDR-*.md` against [`schema/agdr.schema.json`](schema/agdr.schema.json) — required frontmatter fields, `trigger`/`status` enums, `id`-matches-filename, unique IDs, Y-statement present, required sections present. Runs [`scripts/validate-agdr.js`](scripts/validate-agdr.js). | Yes |
+| [`validate-agdr.yml`](.github/workflows/validate-agdr.yml) | Every Markdown and JSON example against [`schema/agdr.schema.json`](schema/agdr.schema.json) and [`schema/agdr-json.schema.json`](schema/agdr-json.schema.json), plus the shared Markdown/JSON equivalence pair. | Yes |
 | [`link-check.yml`](.github/workflows/link-check.yml) | Every markdown link in the repo resolves ([lychee](https://github.com/lycheeverse/lychee)). | Yes |
 | [`changelog-lockstep.yml`](.github/workflows/changelog-lockstep.yml) | If `.claude-plugin/plugin.json`'s version changes, [`CHANGELOG.md`](CHANGELOG.md) must gain a matching `## [x.y.z]` entry in the same PR. Runs [`scripts/check-changelog-lockstep.js`](scripts/check-changelog-lockstep.js). | Yes |
 
@@ -319,3 +319,9 @@ You are free to share and adapt this material with appropriate credit.
 ---
 
 Created by [me2resh](https://github.com/me2resh)
+
+## JSON serialisation
+
+JSON is an additional serialisation of the existing AgDR information model for APIs, agents, and tooling. Markdown remains the repository-native representation and remains valid and supported. The JSON media type is `application/vnd.agdr+json`.
+
+The schema is [`schema/agdr-json.schema.json`](schema/agdr-json.schema.json), with examples under [`examples/json/`](examples/json/). The field mapping and round-trip rules are defined in [SPEC.md §9](SPEC.md#9-json-serialisation). Run `npm run validate:json` to validate every JSON example and `npm run validate:equivalence` to verify the shared Markdown/JSON example.

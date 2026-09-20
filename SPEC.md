@@ -103,3 +103,68 @@ The following are style advice, not requirements the validator enforces:
 ## Change history
 
 Substantive changes to this spec (new required fields, new enum values, tightened body requirements) are breaking for existing validators and MUST be logged in [CHANGELOG.md](CHANGELOG.md).
+
+## 9. JSON serialisation
+
+JSON is an additional serialisation of the AgDR information model. Markdown remains
+the repository-native representation. An implementation MAY support Markdown, JSON,
+or both. The two representations MUST preserve the same decision semantics.
+
+### 9.1 Format identity
+
+- The JSON media type is `application/vnd.agdr+json`.
+- A JSON file SHOULD use the `.agdr.json` suffix when the surrounding tool does not
+  already provide a format-specific name. The examples use `AgDR-NNNN-slug.json`.
+- `mediaType` MUST be `application/vnd.agdr+json`.
+- `specVersion` identifies the AgDR information model version. It is separate from
+  the media type and MUST NOT be used to select a different decision model.
+- The normative JSON Schema is [`schema/agdr-json.schema.json`](schema/agdr-json.schema.json).
+
+### 9.2 Field mapping
+
+| Markdown source | JSON field | Mapping rule |
+|---|---|---|
+| Frontmatter `id`, `timestamp`, `agent`, `model`, `session`, `trigger`, `status`, `supersedes` | Same field name | Copy the scalar value without changing its meaning. |
+| First level-one heading | `title` | Copy the heading text without the `#` marker. |
+| Y-statement blockquote | `yStatement` | Copy the statement text without the `>` marker or presentation emphasis. |
+| `## Context` bullet list | `context` | Preserve bullet order as an array of strings. |
+| `## Options Considered` table | `optionsConsidered` | Each row becomes an object with `name`, `pros`, and `cons` arrays. Preserve row order. |
+| `## Decision` | `decision` | Copy the decision and justification as one string. |
+| `## Consequences` bullet list | `consequences` | Preserve bullet order as an array of strings. |
+| `## Artifacts` bullet list | `artifacts` | Preserve each link or reference as a string. |
+| No Markdown equivalent | `related`, `extensions` | Use only for machine relationships or namespaced consumer data. They MUST NOT change the decision meaning. |
+
+The mapping is structural. Markdown emphasis, table formatting, and list markers are
+presentation syntax and are removed during conversion. The text, order, identity,
+alternatives, chosen option, and decision rationale remain significant.
+
+### 9.3 Conversion and round-trip behavior
+
+Markdown → JSON conversion MUST:
+
+1. Parse and validate the Markdown frontmatter and required body sections.
+2. Map fields using the table in §9.2.
+3. Set `mediaType` to `application/vnd.agdr+json` and set `specVersion` to the
+   supported model version.
+4. Preserve unknown Markdown content in an extension or report it as non-round-trippable.
+
+JSON → Markdown conversion MUST:
+
+1. Validate the JSON against the JSON Schema.
+2. Write the identity fields as YAML frontmatter.
+3. Render `title`, `yStatement`, `context`, `optionsConsidered`, `decision`,
+   `consequences`, and `artifacts` using the Markdown structure in §5.
+4. Preserve `related` and `extensions` in an explicitly named extension section, or
+   report them as non-round-trippable.
+
+A round trip is **information-preserving** when the mapped fields compare equal after
+  removing Markdown presentation syntax. It is not byte-for-byte: heading markers,
+  table pipes, list markers, and emphasis may change. Markdown comments, custom body
+  sections, table cell formatting, and extension fields without a defined target are
+  not guaranteed to round-trip. A converter MUST report those losses instead of
+  silently discarding them.
+
+The shared pair [`examples/AgDR-0001-auth-provider-choice.md`](examples/AgDR-0001-auth-provider-choice.md)
+and [`examples/json/AgDR-0001-auth-provider-choice.json`](examples/json/AgDR-0001-auth-provider-choice.json)
+is checked by `npm run validate:equivalence`. Every JSON example is checked by
+`npm run validate:json` in CI.

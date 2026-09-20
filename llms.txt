@@ -6,6 +6,8 @@
 
 - [Specification (SPEC.md)](https://github.com/me2resh/agent-decision-record/blob/main/SPEC.md): the AgDR format definition — required fields, semantics, and conventions.
 - [JSON schema](https://github.com/me2resh/agent-decision-record/blob/main/schema/agdr.schema.json): the machine-validatable schema for a single AgDR record.
+- [JSON serialisation schema](https://github.com/me2resh/agent-decision-record/blob/main/schema/agdr-json.schema.json): the machine-readable AgDR representation using `application/vnd.agdr+json`.
+- [JSON mapping and round-trip rules](https://github.com/me2resh/agent-decision-record/blob/main/SPEC.md#9-json-serialisation): the field mapping between Markdown and JSON.
 
 ## Templates
 
