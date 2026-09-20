@@ -1,7 +1,7 @@
 {
   "name": "@agent-decision-record/validator",
   "version": "1.2.0",
-  "description": "Browser-safe AgDR Markdown validation core and CLI.",
+  "description": "Portable AgDR Markdown validation core and CLI.",
   "type": "module",
   "bin": { "agdr-validate": "./cli.js" },
   "exports": { ".": { "types": "./index.d.ts", "import": "./index.js" } },
