@@ -11,7 +11,7 @@ const jsonPath = process.argv[3] || path.join(root, 'examples/json/AgDR-0001-aut
 const frontmatterPattern = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/;
 
 function normalize(text) {
-  return String(text).replace(/\*\*/g, '').replace(/`/g, '').replace(/\s+/g, ' ').trim();
+  return String(text).replace(/\*\*/g, '').replace(/`/g, '').replace(/\s+/g, ' ').trim().toLowerCase();
 }
 
 function section(body, heading) {
@@ -20,6 +20,10 @@ function section(body, heading) {
   const contentStart = body.indexOf('\n', start) + 1;
   const next = body.indexOf('\n## ', contentStart);
   return body.slice(contentStart, next < 0 ? body.length : next);
+}
+
+function bullets(body, heading) {
+  return section(body, heading).split(/\r?\n/).filter((line) => /^-\s+/.test(line)).map((line) => normalize(line.replace(/^-\s+/, '')));
 }
 
 function parseMarkdown(filename) {
@@ -32,10 +36,13 @@ function parseMarkdown(filename) {
   const yStatement = body.match(/^>\s*(.+)$/m)?.[1];
   const optionsSection = section(body, '## Options Considered');
   const options = optionsSection.split(/\r?\n/).filter((line) => /^\|/.test(line) && !/^\|\s*-/.test(line)).slice(1)
-    .map((line) => normalize(line.split('|')[1])).filter(Boolean);
+    .map((line) => {
+      const cells = line.split('|').map((cell) => normalize(cell));
+      return { name: cells[1], pros: cells[2], cons: cells[3] };
+    }).filter((option) => option.name);
   const decision = section(body, '## Decision');
   const chosen = decision.match(/Chosen:\s*\*\*([^*]+)\*\*/)?.[1];
-  return { frontmatter, title: normalize(title), yStatement: normalize(yStatement), options, chosen: normalize(chosen) };
+  return { frontmatter, title: normalize(title), yStatement: normalize(yStatement), context: bullets(body, '## Context'), options, chosen: normalize(chosen), consequences: bullets(body, '## Consequences') };
 }
 
 function main() {
@@ -47,9 +54,11 @@ function main() {
   }
   if (markdown.title !== normalize(json.title)) errors.push('title differs');
   if (markdown.yStatement !== normalize(json.yStatement)) errors.push('yStatement differs');
-  const jsonOptions = json.optionsConsidered.map((option) => normalize(option.name));
-  if (JSON.stringify(markdown.options) !== JSON.stringify(jsonOptions)) errors.push('optionsConsidered names differ');
+  if (JSON.stringify(markdown.context) !== JSON.stringify((json.context || []).map(normalize))) errors.push('context differs');
+  const jsonOptions = json.optionsConsidered.map((option) => ({ name: normalize(option.name), pros: normalize(option.pros.join(', ')), cons: normalize(option.cons.join(', ')) }));
+  if (JSON.stringify(markdown.options) !== JSON.stringify(jsonOptions)) errors.push('optionsConsidered fields differ');
   if (!normalize(json.decision).includes(markdown.chosen)) errors.push('decision does not contain the Markdown chosen option');
+  if (JSON.stringify(markdown.consequences) !== JSON.stringify((json.consequences || []).map(normalize))) errors.push('consequences differ');
   if (errors.length) {
     console.error(`FAIL ${path.basename(markdownPath)} ↔ ${path.basename(jsonPath)}`);
     errors.forEach((error) => console.error(`  ${error}`));

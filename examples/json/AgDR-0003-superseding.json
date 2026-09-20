@@ -6,7 +6,7 @@
   "agent": "codex",
   "model": "gpt-6",
   "trigger": "user-prompt",
-  "status": "superseded",
+  "status": "executed",
   "supersedes": "AgDR-0001",
   "title": "Replace the authentication provider",
   "yStatement": "In the context of an existing authenticated service, facing a provider migration requirement, I decided to replace the current provider with a compatible managed provider to achieve supported authentication, accepting migration work.",

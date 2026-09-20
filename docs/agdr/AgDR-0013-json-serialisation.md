@@ -1,6 +1,15 @@
+---
+id: AgDR-0013
+timestamp: 2026-09-12T21:00:00Z
+agent: codex
+model: gpt-6
+trigger: user-prompt
+status: executed
+---
+
 # Define JSON as an additional AgDR serialisation
 
-> In the context of extending AgDR for APIs and agent tooling, facing a need for machine-readable transport without changing the repository-native format, I decided to define JSON as a serialisation of the existing AgDR information model, accepting a second schema and conversion maintenance.
+> In the context of extending AgDR for APIs and agent tooling, facing a need for machine-readable transport without changing the repository-native format, I decided to define JSON as a serialisation of the existing AgDR information model to achieve machine-readable exchange, accepting a second schema and conversion maintenance.
 
 ## Options Considered
 | Option | Pros | Cons |

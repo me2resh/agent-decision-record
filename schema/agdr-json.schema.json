@@ -26,11 +26,5 @@
     "artifacts": { "type": "array", "items": { "type": "string" } },
     "related": { "type": "array", "items": { "type": "object", "required": ["rel", "type", "id"], "additionalProperties": false, "properties": { "rel": { "type": "string", "minLength": 1 }, "type": { "type": "string", "minLength": 1 }, "id": { "type": "string", "minLength": 1 }, "href": { "type": "string", "format": "uri" } } } },
     "extensions": { "type": "object", "additionalProperties": true }
-  },
-  "allOf": [
-    {
-      "if": { "properties": { "status": { "const": "superseded" } } },
-      "then": { "required": ["supersedes"] }
-    }
-  ]
+  }
 }
