@@ -31,3 +31,4 @@ jobs:
       - run: npm ci
 
       - run: npm run validate
+      - run: npm run validate:equivalence

@@ -1,4 +1,5 @@
 {
+  "mediaType": "application/vnd.agdr+json",
   "specVersion": "1.2",
   "id": "AgDR-0001",
   "timestamp": "2026-02-04T12:00:00Z",
@@ -7,11 +8,13 @@
   "trigger": "user-prompt",
   "status": "executed",
   "title": "Auth Provider for Serverless Chrome Extension",
-  "yStatement": "In the context of replacing API key auth in a serverless stack, facing the need for managed user identity, I decided to use AWS Cognito to achieve native API integration, accepting hosted UI limitations and vendor lock-in.",
-  "context": ["The backend uses AWS serverless services.", "The extension needs login, token refresh and user identity."],
+  "yStatement": "In the context of replacing API key auth in a 100% AWS serverless stack, facing the need for proper user identity with minimal maintenance, I decided to use AWS Cognito User Pools to achieve native API Gateway integration and managed security, accepting the limited Hosted UI aesthetics and AWS vendor lock-in.",
+  "context": ["Backend is 100% AWS (SAM, Lambda, API Gateway, DynamoDB)", "Currently uses API keys with actor name in request bodies — no real identity", "Chrome extension uses chrome.identity.launchWebAuthFlow for OAuth flows", "Small user base, personal project with minimal budget", "Need: login, token refresh, user identity in JWT claims"],
   "optionsConsidered": [
     { "name": "AWS Cognito", "pros": ["Native API integration", "Managed security"], "cons": ["Hosted UI limitations", "AWS lock-in"] },
-    { "name": "Auth0", "pros": ["Polished login UI"], "cons": ["External service", "Custom authorizer work"] }
+    { "name": "Auth0", "pros": ["Polished login UI", "Excellent developer experience", "7.5K MAU free tier"], "cons": ["External vendor", "Custom Lambda authorizer needed", "Extra CORS configuration", "Additional billing account"] },
+    { "name": "Firebase Auth", "pros": ["Simple SDK", "Good Chrome extension support", "Generous free tier"], "cons": ["Mixes GCP and AWS", "Custom Lambda authorizer", "No SAM integration", "Two cloud vendors to manage"] },
+    { "name": "Custom JWT", "pros": ["Full control", "No external dependencies"], "cons": ["Security implementation burden", "Ongoing maintenance"] }
   ],
   "decision": "Use AWS Cognito because its managed authorizer removes custom token verification from the application.",
   "consequences": ["The application remains on one cloud provider.", "Moving away later requires replacing the authorizer and token format."],

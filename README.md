@@ -324,4 +324,4 @@ Created by [me2resh](https://github.com/me2resh)
 
 Issue [#23](https://github.com/me2resh/agent-decision-record/issues/23) tracks a proposed JSON serialisation of the existing AgDR information model. It is an additional representation for APIs, agents and tooling. Markdown remains valid and supported.
 
-The draft schema is [`schema/agdr-json.schema.json`](schema/agdr-json.schema.json), with examples under [`examples/json/`](examples/json/). Run `npm run validate:json` to validate those examples.
+The schema is [`schema/agdr-json.schema.json`](schema/agdr-json.schema.json), with examples under [`examples/json/`](examples/json/). The field mapping and round-trip rules are defined in [SPEC.md §9](SPEC.md#9-json-serialisation). Run `npm run validate:json` to validate every JSON example and `npm run validate:equivalence` to verify the shared Markdown/JSON example.

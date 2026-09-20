@@ -9,9 +9,10 @@
 | Create a separate JSON standard | Simple initial schema | Splits semantics and creates incompatible records |
 
 ## Decision
-Define JSON as an additional serialisation of the existing AgDR information model because it enables programmatic use while keeping Markdown records valid and primary for repository review.
+Define JSON as an additional serialisation of the existing AgDR information model because it enables programmatic use while keeping Markdown records valid and primary for repository review. Use `application/vnd.agdr+json` as the media type and validate the shared Markdown/JSON example in CI.
 
 ## Consequences
 - Markdown and JSON must preserve the same decision semantics.
 - The JSON schema and examples require CI validation.
 - Any information that cannot round-trip must be documented.
+- Markdown and JSON field mappings and loss limits are defined in SPEC.md §9.
