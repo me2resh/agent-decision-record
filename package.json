@@ -7,7 +7,8 @@
   "scripts": {
     "validate": "node scripts/validate-agdr.js && node scripts/validate-agdr-json.js",
     "validate:changelog": "node scripts/check-changelog-lockstep.js origin/main HEAD",
-    "validate:json": "node scripts/validate-agdr-json.js"
+    "validate:json": "node scripts/validate-agdr-json.js",
+    "validate:equivalence": "node scripts/validate-agdr-equivalence.js"
   },
   "license": "CC-BY-4.0",
   "devDependencies": {

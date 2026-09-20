@@ -1,0 +1,19 @@
+{
+  "mediaType": "application/vnd.agdr+json",
+  "specVersion": "1.2",
+  "id": "AgDR-0003",
+  "timestamp": "2026-02-06T10:00:00Z",
+  "agent": "codex",
+  "model": "gpt-6",
+  "trigger": "user-prompt",
+  "status": "superseded",
+  "supersedes": "AgDR-0001",
+  "title": "Replace the authentication provider",
+  "yStatement": "In the context of an existing authenticated service, facing a provider migration requirement, I decided to replace the current provider with a compatible managed provider to achieve supported authentication, accepting migration work.",
+  "optionsConsidered": [
+    { "name": "Managed provider", "pros": ["Reduces operational work"], "cons": ["Creates provider dependency"] },
+    { "name": "Self-hosted provider", "pros": ["Controls deployment"], "cons": ["Adds security maintenance"] }
+  ],
+  "decision": "Replace the current provider because the managed service meets the support requirement with less operational work.",
+  "consequences": ["A migration is required.", "The provider remains an external dependency."]
+}
