@@ -1,0 +1,40 @@
+name: Example contribution
+description: Contribute a real-world AgDR to examples/
+title: "[Example] "
+labels: ["examples"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for sharing a decision! See [CONTRIBUTING.md](../../CONTRIBUTING.md#1-add-examples) and [SPEC.md](../../SPEC.md) for the format your example needs to follow — it'll be run through the same validator CI runs on every PR.
+  - type: input
+    id: title
+    attributes:
+      label: Decision title
+      description: The short descriptive title of the decision (becomes the AgDR's `# heading`).
+      placeholder: "e.g. Use Vitest for unit testing"
+    validations:
+      required: true
+  - type: textarea
+    id: y-statement
+    attributes:
+      label: Y-statement
+      description: "In the context of X, facing Y, I decided Z to achieve A, accepting B."
+    validations:
+      required: true
+  - type: textarea
+    id: options
+    attributes:
+      label: Options considered
+      description: At least 2 real options, with pros and cons.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: This is a real decision (anonymised if needed), not a hypothetical
+          required: true
+        - label: I've followed agdr-template.md / SPEC.md for the required fields and sections
+          required: true

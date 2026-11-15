@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/me2resh/agent-decision-record/schema/agdr.schema.json",
+  "title": "Agent Decision Record (AgDR) frontmatter",
+  "description": "Normative schema for the YAML frontmatter of an Agent Decision Record. See SPEC.md for the full normative reference, including body-section requirements this schema cannot express.",
+  "type": "object",
+  "required": ["id", "timestamp", "agent", "model", "trigger", "status"],
+  "additionalProperties": true,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^AgDR-[0-9]{4,}$",
+      "description": "Zero-padded identifier, e.g. AgDR-0001. MUST match the file's name (see SPEC.md § Naming Convention)."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 timestamp with time and timezone, e.g. 2026-01-30T18:45:00Z."
+    },
+    "agent": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Identifier for the AI agent that made the decision, e.g. claude-code, codex, copilot, cursor, windsurf."
+    },
+    "model": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Model identifier, e.g. claude-opus-4-5-20251101. Use the {model-id} placeholder in illustrative docs; real AgDRs SHOULD record the actual model in use at decision time."
+    },
+    "session": {
+      "type": "string",
+      "description": "Optional session identifier for traceability."
+    },
+    "trigger": {
+      "type": "string",
+      "enum": ["user-prompt", "hook", "automation", "self-initiated"],
+      "description": "What initiated the decision."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["proposed", "executed", "superseded", "deprecated"],
+      "description": "Current state of the decision."
+    },
+    "supersedes": {
+      "type": "string",
+      "pattern": "^AgDR-[0-9]{4,}$",
+      "description": "Optional ID of the AgDR this one replaces."
+    }
+  }
+}

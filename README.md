@@ -1,21 +1,67 @@
 # Agent Decision Records (AgDR)
 
+[![Stars](https://img.shields.io/github/stars/me2resh/agent-decision-record?style=flat&logo=github&label=Stars)](https://github.com/me2resh/agent-decision-record)
+[![Forks](https://img.shields.io/github/forks/me2resh/agent-decision-record?style=flat&logo=github&label=Forks)](https://github.com/me2resh/agent-decision-record)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-blue.svg)](LICENSE)
+[![Validate AgDRs](https://github.com/me2resh/agent-decision-record/actions/workflows/validate-agdr.yml/badge.svg)](https://github.com/me2resh/agent-decision-record/actions/workflows/validate-agdr.yml)
+[![Link Check](https://github.com/me2resh/agent-decision-record/actions/workflows/link-check.yml/badge.svg)](https://github.com/me2resh/agent-decision-record/actions/workflows/link-check.yml)
+[![Changelog Lockstep](https://github.com/me2resh/agent-decision-record/actions/workflows/changelog-lockstep.yml/badge.svg)](https://github.com/me2resh/agent-decision-record/actions/workflows/changelog-lockstep.yml)
 [![SkillShield](https://skillshield.io/api/v1/badge/1daff16083a7aeed.svg)](https://skillshield.io/report/1daff16083a7aeed)
 
-**A standard for documenting technical decisions made by AI coding agents.**
+**Your AI agent just picked one library over another, chose a data model, and settled an architecture question — faster than you could read this sentence. Where's the record of *why*?**
 
-AgDR extends the proven [Architecture Decision Record](https://github.com/joelparkerhenderson/architecture-decision-record) (ADR) format for AI-assisted software development. When AI agents make technical choices—selecting libraries, choosing patterns, designing architecture—those decisions need the same rigor and traceability as human decisions.
+AI coding agents (Claude Code, Codex, Copilot, Cursor, Windsurf) now make consequential technical decisions at machine speed: libraries, patterns, migrations, whole architectures. You skim the diff, approve the PR, and it ships. Six weeks later a test breaks, a cost spikes, or a new hire asks *"why is it built this way?"* — and nobody, human or agent, can reconstruct the reasoning. The context evaporated the moment that session ended.
 
-## Why AgDR?
+**An Agent Decision Record (AgDR) is that missing record.** It's a small, structured Markdown file — context, the options weighed, the decision, and the trade-off accepted — written by the agent *at the moment it makes the call* and committed alongside the code it governs. Think [Architecture Decision Record](https://github.com/joelparkerhenderson/architecture-decision-record), but authored by the agent in real time, carrying the metadata (model, trigger, timestamp) an audit actually needs.
 
-AI coding agents (Claude Code, Codex, GitHub Copilot, Cursor, Windsurf, etc.) increasingly make technical decisions autonomously. Without documentation:
+It's an open standard: a Markdown representation, a JSON serialisation, schemas for both, and validators that CI runs on every PR. Drop it into any repo, with any agent — [no framework required](#adopt-in-5-minutes). This README is the tour; **[SPEC.md](SPEC.md)** is the normative reference for every field, enum, representation, and body rule.
 
-- **Decisions are invisible** - No record of why the agent chose React over Vue
-- **Context is lost** - Next session starts fresh with no memory
-- **Teams can't audit** - PR reviews miss the reasoning behind choices
-- **Knowledge doesn't transfer** - Onboarding devs can't understand AI-made decisions
+## What an AgDR looks like
 
-AgDR solves this by requiring agents to document decisions in a structured, human-readable format that lives with your code.
+A real one, spec-valid, in about ten seconds of reading:
+
+```markdown
+---
+id: AgDR-0001
+timestamp: 2026-01-30T18:45:00Z
+agent: claude-code
+model: claude-opus-4-5-20251101
+trigger: user-prompt
+status: executed
+---
+
+# Use Vitest for unit testing
+
+> In the context of a new TypeScript + Vite monorepo, facing the need for fast feedback loops, I decided to use Vitest to achieve near-instant test runs, accepting that it is newer than Jest with a smaller plugin ecosystem.
+
+## Options Considered
+| Option | Pros | Cons |
+|--------|------|------|
+| Jest   | Industry standard, huge ecosystem | Slower, awkward ESM config |
+| Vitest | Native Vite support, fast, Jest-compatible API | Newer, smaller ecosystem |
+
+## Decision
+Chosen: **Vitest**, because it runs on our existing Vite pipeline and executes
+tests 3–5× faster while keeping a Jest-compatible API the team already knows.
+
+## Consequences
+- Test suite runs 3–5× faster than the Jest equivalent
+- Team reuses Jest knowledge (compatible API)
+- May need workarounds for a few Jest-only plugins
+```
+
+That's the whole shape: frontmatter you can lint, a one-line [Y-statement](SPEC.md#6-the-y-statement-good-vs-too-vague), the alternatives that were actually on the table, and the trade-off owned out loud. See more in [examples/](examples/).
+
+## Why it matters now
+
+Agents write code faster than any team can narrate its own reasoning. Without a record that keeps pace, the decisions still happen — they just become invisible:
+
+- **Decisions are invisible** — no record of why the agent chose React over Vue
+- **Context is lost** — the next session starts fresh, with no memory of the last call
+- **Teams can't audit** — PR review sees *what* changed, never *why* it was chosen
+- **Knowledge doesn't transfer** — new engineers can't reconstruct AI-made decisions
+
+AgDR closes the gap by having the agent document each decision in a structured, human-readable file that lives with the code — so the reasoning survives the session that produced it.
 
 ## Key Differences from ADR
 
@@ -28,7 +74,19 @@ AgDR solves this by requiring agents to document decisions in a structured, huma
 | **Enforcement** | Manual process | Automated via hooks, skills, or prompts |
 | **Location** | `docs/adr/` | `docs/agdr/` (per-project) |
 
-## Quick Start
+<a id="adopt-in-5-minutes"></a>
+
+## Adopt in 5 minutes
+
+AgDR is a plain standard, not a product — **you don't need ApexYard or any framework to use it.** The fastest on-ramp is whichever agent you already run; the most portable is a copied template plus the validator.
+
+**The zero-dependency path** — copy three things into your repo and you're done:
+
+1. **The template** — [`agdr-template.md`](agdr-template.md) (or [the short one](agdr-template-short.md)); agents write files to `docs/agdr/AgDR-NNNN-*.md`.
+2. **The schema** — [`schema/agdr.schema.json`](schema/agdr.schema.json), so frontmatter is machine-checkable.
+3. **The check** — vendor [`scripts/validate-agdr.js`](scripts/validate-agdr.js) (or the [`validate-agdr.yml`](.github/workflows/validate-agdr.yml) workflow) so CI rejects malformed records.
+
+Or wire it into your agent directly:
 
 ### Install as Claude Code Plugin
 
@@ -67,65 +125,44 @@ create an AgDR document following the template at:
 https://github.com/me2resh/agent-decision-record
 ```
 
-### Output
+Whichever route you pick, the agent produces an AgDR with the same shape shown in [What an AgDR looks like](#what-an-agdr-looks-like) above — committed to `docs/agdr/` next to the code it governs.
 
-```markdown
----
-id: AgDR-0001
-timestamp: 2026-01-30T18:45:00Z
-agent: claude-code
-model: claude-opus-4-5-20251101
-trigger: user-prompt
-status: executed
----
+### Confirm it
 
-# Use Vitest for unit testing
+Don't just trust that the output above is well-formed — check it. Clone this repo (or vendor `schema/` + `scripts/validate-agdr.js` into yours) and run the same validator CI runs on every PR here:
 
-> In the context of a new TypeScript project, facing the need for fast test execution,
-> I decided to use Vitest to achieve rapid feedback loops, accepting that it's newer
-> than Jest with a smaller ecosystem.
-
-## Context
-- New TypeScript monorepo with Vite build system
-- Team prioritizes fast feedback during development
-- Existing Jest knowledge on team
-
-## Options Considered
-| Option | Pros | Cons |
-|--------|------|------|
-| Jest | Industry standard, huge ecosystem | Slower, complex config with ESM |
-| Vitest | Native Vite support, fast, Jest-compatible API | Newer, smaller ecosystem |
-
-## Decision
-Chosen: **Vitest**, because it integrates natively with our Vite setup and provides
-significantly faster test execution while maintaining Jest API compatibility.
-
-## Consequences
-- Tests run 3-5x faster than Jest equivalent
-- Team can reuse Jest knowledge (compatible API)
-- May need workarounds for some Jest plugins
+```bash
+git clone https://github.com/me2resh/agent-decision-record.git && cd agent-decision-record
+npm install
+node scripts/validate-agdr.js /path/to/your-project/docs/agdr/AgDR-0001-*.md
 ```
+
+A passing run confirms your first AgDR has valid frontmatter, a real Y-statement, and the required sections — the same bar the AgDR's own `examples/` are held to.
 
 ## AgDR Template
 
-See [agdr-template.md](agdr-template.md) for the full template.
+See [agdr-template.md](agdr-template.md) for the full and short templates, and [SPEC.md](SPEC.md) for the normative spec — every required field, enum value, and body-structure rule lives there as the single source of truth.
 
-### Required Fields
+### Required Fields (summary)
 
 | Field | Description | Example |
 |-------|-------------|---------|
 | `id` | Unique identifier | `AgDR-0001` |
 | `timestamp` | ISO-8601 with time | `2026-01-30T18:45:00Z` |
 | `agent` | Agent that made the decision | `claude-code`, `codex`, `copilot`, `cursor` |
-| `model` | Model identifier | `claude-opus-4-5-20251101` |
+| `model` | Model identifier | `{model-id}` (the model actually in use, e.g. `claude-opus-4-5`) |
 | `trigger` | What initiated the decision | `user-prompt`, `hook`, `automation` |
 | `status` | Decision status | `proposed`, `executed`, `superseded` |
+
+Full field reference (including optional `session`/`supersedes` and the enum definitions): [SPEC.md §2](SPEC.md#2-frontmatter-fields).
 
 ### The Y-Statement
 
 Every AgDR must include a one-line summary following the Y-statement format:
 
 > In the context of **[situation]**, facing **[concern]**, I decided **[decision]** to achieve **[goal]**, accepting **[tradeoff]**.
+
+Good vs. too-vague examples: [SPEC.md §6](SPEC.md#6-the-y-statement-good-vs-too-vague).
 
 ## Directory Structure
 
@@ -148,6 +185,24 @@ your-project/
 - PRs can reference AgDRs in the same repo
 - History preserved if project is forked
 
+## Validation & CI
+
+A standard that asks agents for "rigor and traceability" should be able to check its own homework. This repo runs three checks on every PR (see [.github/workflows/](.github/workflows/)):
+
+| Workflow | Checks | Blocking? |
+|----------|--------|-----------|
+| [`validate-agdr.yml`](.github/workflows/validate-agdr.yml) | Every Markdown and JSON example against [`schema/agdr.schema.json`](schema/agdr.schema.json) and [`schema/agdr-json.schema.json`](schema/agdr-json.schema.json), plus the shared Markdown/JSON equivalence pair. | Yes |
+| [`link-check.yml`](.github/workflows/link-check.yml) | Every markdown link in the repo resolves ([lychee](https://github.com/lycheeverse/lychee)). | Yes |
+| [`changelog-lockstep.yml`](.github/workflows/changelog-lockstep.yml) | If `.claude-plugin/plugin.json`'s version changes, [`CHANGELOG.md`](CHANGELOG.md) must gain a matching `## [x.y.z]` entry in the same PR. Runs [`scripts/check-changelog-lockstep.js`](scripts/check-changelog-lockstep.js). | Yes |
+
+Run any of them locally before opening a PR:
+
+```bash
+npm install
+npm run validate              # validate-agdr.js against examples/
+npm run validate:changelog    # check-changelog-lockstep.js against origin/main
+```
+
 ## Tools & Integrations
 
 | Tool | Format | Location |
@@ -163,7 +218,7 @@ your-project/
 
 ### Claude Code
 
-Install as a plugin for the namespaced `/agent-decision-record:decide` command, or copy [commands/decide.md](commands/decide.md) to your project's `.claude/commands/` for the shorter `/decide` name. See [Quick Start](#quick-start) for details.
+Install as a plugin for the namespaced `/agent-decision-record:decide` command, or copy [commands/decide.md](commands/decide.md) to your project's `.claude/commands/` for the shorter `/decide` name. See [Adopt in 5 minutes](#adopt-in-5-minutes) for details.
 
 ### Codex
 
@@ -231,6 +286,8 @@ Organizations using AgDR:
 
 *Want to be listed? Open a PR!*
 
+> **AgDR and ApexYard.** [ApexYard](https://github.com/me2resh/apexyard) is a multi-project SDLC framework that *uses* AgDR to record the decisions its agents make — but AgDR is an independent standard with no dependency on it. You can adopt AgDR on its own, in any repo, with any agent.
+
 ## Changelog
 
 See [CHANGELOG.md](CHANGELOG.md) for release history.
@@ -263,3 +320,9 @@ You are free to share and adapt this material with appropriate credit.
 ---
 
 Created by [me2resh](https://github.com/me2resh)
+
+## JSON serialisation
+
+JSON is an additional serialisation of the existing AgDR information model for APIs, agents, and tooling. Markdown remains the repository-native representation and remains valid and supported. The JSON media type is `application/vnd.agdr+json`.
+
+The schema is [`schema/agdr-json.schema.json`](schema/agdr-json.schema.json), with examples under [`examples/json/`](examples/json/). The field mapping and round-trip rules are defined in [SPEC.md §9](SPEC.md#9-json-serialisation). Run `npm run validate:json` to validate every JSON example and `npm run validate:equivalence` to verify the shared Markdown/JSON example.

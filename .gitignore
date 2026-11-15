@@ -1,0 +1,6 @@
+# Dependencies for the validator tooling (scripts/, package.json)
+node_modules/
+npm-debug.log*
+
+# OS cruft
+.DS_Store

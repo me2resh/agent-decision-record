@@ -1,37 +1,5 @@
 # AgDR Short Template
 
-A minimal template for straightforward decisions.
+This file has been consolidated into [agdr-template.md](agdr-template.md) to keep the AgDR templates in one place — see [Short Template](agdr-template.md#short-template) for the template itself, and [SPEC.md](SPEC.md) for the normative field and section rules behind it.
 
-```markdown
----
-id: AgDR-{NNNN}
-timestamp: {YYYY-MM-DDTHH:MM:SSZ}
-agent: {agent-name}
-model: {model-id}
-trigger: {trigger}
-status: executed
----
-
-# {Title}
-
-> In the context of {context}, facing {concern}, I decided {decision} to achieve {goal}, accepting {tradeoff}.
-
-## Options Considered
-| Option | Pros | Cons |
-|--------|------|------|
-| A | ... | ... |
-| B | ... | ... |
-
-## Decision
-Chosen: **{Option}**, because {justification}.
-```
-
-## When to Use
-
-Use the short template when:
-- Only 2-3 options were considered
-- Context is already well understood
-- Consequences are straightforward
-- No related artifacts to link
-
-Use the [full template](agdr-template.md) for complex decisions with multiple stakeholders or significant consequences.
+This stub is kept so existing links to `agdr-template-short.md` don't 404.
