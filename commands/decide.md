@@ -15,6 +15,16 @@ Forces structured decision-making and creates an auditable Agent Decision Record
 /decide how to implement caching
 ```
 
+## Decision Gate Constraints
+
+Before creating an AgDR, resolve these constraints:
+
+- **Do not** document a decision before understanding the real problem
+- **Do not** accept the first option — at least 2 viable alternatives must be compared. This applies to the full and the short template. When only one option is viable, still list at least one rejected option in the table, and say in one line why it is not viable
+- **Do not** list pros/cons you haven't verified — base claims on evidence
+- **Do not** write "better" or "faster" without specifics — use measurable criteria
+- **Do not** proceed without naming the tradeoff you're accepting
+
 ## Process
 
 ### 1. Parse Decision Topic
@@ -84,7 +94,30 @@ Chosen: **{option}**, because {justification}.
 - {commit/PR links when available}
 ```
 
-### 6. Get Next ID
+### 6. Validate the AgDR
+
+Run the portable validator against the file you created. In a repository that
+installs the package, use:
+
+```bash
+npx --no-install agdr-validate docs/agdr/AgDR-{NNNN}-{slug}.md
+```
+
+When working inside the AgDR repository itself, use the local CLI:
+
+```bash
+node packages/validator/cli.js docs/agdr/AgDR-{NNNN}-{slug}.md
+```
+
+If validation reports any issue, correct the record and run the command again.
+Do not report the decision as complete until it returns exit code 0. The
+repository-wide validator remains the CI check for duplicate IDs and all files:
+
+```bash
+node scripts/validate-agdr.js docs/agdr/AgDR-{NNNN}-{slug}.md
+```
+
+### 7. Get Next ID
 
 ```bash
 # Find highest existing AgDR number
@@ -92,7 +125,7 @@ ls docs/agdr/AgDR-*.md 2>/dev/null | sort -V | tail -1 | grep -oP 'AgDR-\K\d+'
 # Increment by 1, or start at 0001
 ```
 
-### 7. Return Decision
+### 8. Return Decision
 
 Output the decision so work can continue:
 
@@ -100,6 +133,8 @@ Output the decision so work can continue:
 Decision: {chosen option}
 
 AgDR-{NNNN} created at docs/agdr/AgDR-{NNNN}-{slug}.md
+
+Conformance: passed (`agdr-validate`)
 
 Proceeding with: {brief action}
 ```

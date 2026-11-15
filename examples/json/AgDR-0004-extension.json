@@ -1,0 +1,20 @@
+{
+  "mediaType": "application/vnd.agdr+json",
+  "specVersion": "1.2",
+  "id": "AgDR-0004",
+  "timestamp": "2026-02-07T10:00:00Z",
+  "agent": "codex",
+  "model": "gpt-6",
+  "trigger": "automation",
+  "status": "proposed",
+  "title": "Add an extension field",
+  "yStatement": "In the context of indexing decisions, facing a need for stable project metadata, I decided to add a namespaced extension to achieve searchable records, accepting consumer support for the extension.",
+  "optionsConsidered": [
+    { "name": "Namespaced extension", "pros": ["Preserves the core model"], "cons": ["Requires extension-aware consumers"] },
+    { "name": "Core schema field", "pros": ["Works for every consumer"], "cons": ["Expands the normative model"] }
+  ],
+  "decision": "Add a namespaced extension because project metadata is local to the consumer and does not belong in the core model.",
+  "extensions": {
+    "com.example.project": { "owner": "platform", "priority": "normal" }
+  }
+}

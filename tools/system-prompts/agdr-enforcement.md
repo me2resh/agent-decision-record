@@ -16,6 +16,15 @@ When making technical decisions during coding, you MUST create an Agent Decision
 - Picking an implementation approach
 - Making an architectural choice
 
+### Decision Gate Constraints
+
+Before creating an AgDR, resolve these constraints:
+- Do not document a decision before understanding the real problem
+- Do not accept the first option — at least 2 viable alternatives must be compared. This applies to the full and the short template. When only one option is viable, still list at least one rejected option in the table, and say in one line why it is not viable
+- Do not list pros/cons you haven't verified — base claims on evidence
+- Do not write "better" or "faster" without specifics — use measurable criteria
+- Do not proceed without naming the tradeoff you're accepting
+
 ### AgDR Format
 
 Create a markdown file at `docs/agdr/AgDR-{NNNN}-{slug}.md`:
