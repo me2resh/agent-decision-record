@@ -13,7 +13,7 @@ Every AgDR must include a Y-statement summary: "In the context of [situation], f
 Before creating an AgDR, resolve these constraints:
 
 - **Do not** document a decision before understanding the real problem
-- **Do not** accept the first option — at least 2 viable alternatives must be compared
+- **Do not** accept the first option — at least 2 viable alternatives must be compared. This applies to the full and the short template. When only one option is viable, say why in one line
 - **Do not** list pros/cons you haven't verified — base claims on evidence
 - **Do not** write "better" or "faster" without specifics — use measurable criteria
 - **Do not** proceed without naming the tradeoff you're accepting

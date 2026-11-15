@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- **Decision gate constraints** in every tool integration (Claude Code command and skill, Codex, Copilot, Cursor, Windsurf, system prompt). Five rules apply before an agent writes an AgDR: understand the problem, compare at least 2 viable alternatives, base claims on evidence, use measurable criteria, and name the accepted tradeoff. The two-alternatives rule applies to the full and the short template. When only one option is viable, the AgDR says why in one line. Contributed by @khalidelborai.
+- `agdr-review.md`: a checklist and three adversarial questions for reviewing AgDRs in pull requests, linked from the README.
+
 ## [1.2.0] - 2026-07-04
 
 ### Added
