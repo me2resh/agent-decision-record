@@ -15,6 +15,16 @@ Forces structured decision-making and creates an auditable Agent Decision Record
 /decide how to implement caching
 ```
 
+## Decision Gate Constraints
+
+Before creating an AgDR, resolve these constraints:
+
+- **Do not** document a decision before understanding the real problem
+- **Do not** accept the first option — at least 2 viable alternatives must be compared. This applies to the full and the short template. When only one option is viable, still list at least one rejected option in the table, and say in one line why it is not viable
+- **Do not** list pros/cons you haven't verified — base claims on evidence
+- **Do not** write "better" or "faster" without specifics — use measurable criteria
+- **Do not** proceed without naming the tradeoff you're accepting
+
 ## Process
 
 ### 1. Parse Decision Topic
