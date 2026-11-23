@@ -15,7 +15,7 @@ trigger: {user-prompt | hook | automation}
 status: {proposed | executed | superseded}
 supersedes: {AgDR-XXXX if replacing another}
 approver_type: {human | agent | app}  # optional: the kind of party that approved the decision
-rules_version: {commit-sha-or-hash}  # optional: the approval rules in force at approval time
+rules_version: "{commit-sha-or-hash}"  # optional: quote it, so a numeric short SHA stays a string
 ---
 
 # {Short descriptive title}
@@ -67,7 +67,7 @@ model: {model-id}
 trigger: {trigger}
 status: executed
 approver_type: {human | agent | app}  # optional: the kind of party that approved the decision
-rules_version: {commit-sha-or-hash}  # optional: the approval rules in force at approval time
+rules_version: "{commit-sha-or-hash}"  # optional: quote it, so a numeric short SHA stays a string
 ---
 
 # {Title}
