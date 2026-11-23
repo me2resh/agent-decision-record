@@ -27,6 +27,8 @@ Examples: `AgDR-0001-use-vitest-for-testing.md`, `AgDR-0015-postgres-over-mysql.
 | `trigger` | MUST | enum | One of: `user-prompt`, `hook`, `automation`, `self-initiated` (see §3). |
 | `status` | MUST | enum | One of: `proposed`, `executed`, `superseded`, `deprecated` (see §4). |
 | `supersedes` | MAY | `AgDR-NNNN` | ID of the AgDR this one replaces, when `status: superseded` applies to the *other* record. |
+| `approver_type` | MAY | enum | The kind of party that approved the decision. One of: `human`, `agent`, `app`. |
+| `rules_version` | MAY | string | The commit SHA or content hash of the approval policy or rules in force when the decision was approved. |
 
 ### 3. `trigger` values
 
@@ -124,7 +126,7 @@ or both. The two representations MUST preserve the same decision semantics.
 
 | Markdown source | JSON field | Mapping rule |
 |---|---|---|
-| Frontmatter `id`, `timestamp`, `agent`, `model`, `session`, `trigger`, `status`, `supersedes` | Same field name | Copy the scalar value without changing its meaning. |
+| Frontmatter `id`, `timestamp`, `agent`, `model`, `session`, `trigger`, `status`, `supersedes`, `approver_type`, `rules_version` | Same field name | Copy the scalar value without changing its meaning. |
 | First level-one heading | `title` | Copy the heading text without the `#` marker. |
 | Y-statement blockquote | `yStatement` | Copy the statement text without the `>` marker or presentation emphasis. |
 | `## Context` bullet list | `context` | Preserve bullet order as an array of strings. |

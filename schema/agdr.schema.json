@@ -45,6 +45,16 @@
       "type": "string",
       "pattern": "^AgDR-[0-9]{4,}$",
       "description": "Optional ID of the AgDR this one replaces."
+    },
+    "approver_type": {
+      "type": "string",
+      "enum": ["human", "agent", "app"],
+      "description": "Optional kind of party that approved the decision."
+    },
+    "rules_version": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Optional commit SHA or content hash of the approval rules in force when the decision was approved."
     }
   }
 }

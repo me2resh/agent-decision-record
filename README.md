@@ -162,7 +162,7 @@ See [agdr-template.md](agdr-template.md) for the full and short templates, and [
 | `trigger` | What initiated the decision | `user-prompt`, `hook`, `automation` |
 | `status` | Decision status | `proposed`, `executed`, `superseded` |
 
-Full field reference (including optional `session`/`supersedes` and the enum definitions): [SPEC.md §2](SPEC.md#2-frontmatter-fields).
+Full field reference (including optional `session`/`supersedes`/`approver_type`/`rules_version` and the enum definitions): [SPEC.md §2](SPEC.md#2-frontmatter-fields).
 
 ### The Y-Statement
 

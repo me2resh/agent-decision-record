@@ -17,6 +17,8 @@
     "trigger": { "type": "string", "enum": ["user-prompt", "hook", "automation", "self-initiated"] },
     "status": { "type": "string", "enum": ["proposed", "executed", "superseded", "deprecated"] },
     "supersedes": { "type": "string", "pattern": "^AgDR-[0-9]{4,}$" },
+    "approver_type": { "type": "string", "enum": ["human", "agent", "app"] },
+    "rules_version": { "type": "string", "minLength": 1 },
     "title": { "type": "string", "minLength": 1 },
     "yStatement": { "type": "string", "minLength": 1 },
     "context": { "type": "array", "items": { "type": "string" } },

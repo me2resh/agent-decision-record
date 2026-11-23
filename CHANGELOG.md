@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Optional approver fields** in the AgDR frontmatter and JSON form: `approver_type` (`human`, `agent`, or `app`) and `rules_version` (the commit SHA or content hash of the approval rules in force at approval time). This is a backward-compatible addition. Both fields are optional (MAY), and every existing record stays valid. SPEC §2 and §9.2, both templates, and both JSON Schemas now include them. `specVersion` stays the same because the change is additive and optional.
 - **Decision gate constraints** in every tool integration (Claude Code command and skill, Codex, Copilot, Cursor, Windsurf, system prompt). Five rules apply before an agent writes an AgDR: understand the problem, compare at least 2 viable alternatives, base claims on evidence, use measurable criteria, and name the accepted tradeoff. The two-alternatives rule applies to the full and the short template. When only one option is viable, the AgDR still lists at least one rejected option and says in one line why it is not viable. Contributed by @khalidelborai.
 - `agdr-review.md`: a checklist and three adversarial questions for reviewing AgDRs in pull requests, linked from the README.
 

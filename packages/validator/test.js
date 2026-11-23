@@ -31,6 +31,18 @@ test('reports schema violations', () => {
   const errors = validateAgdr(valid.replace('status: proposed', 'status: unknown'));
   assert.ok(errors.some((item) => item.path === 'frontmatter.status'));
 });
+test('accepts optional approver_type and rules_version', () => {
+  const withFields = valid.replace('status: proposed', 'status: proposed\napprover_type: agent\nrules_version: 3f2a9c1');
+  assert.deepEqual(validateAgdr(withFields, { filename: 'AgDR-0014-auth.md' }), []);
+  assert.deepEqual(validateAgdrJson({
+    id: 'AgDR-0014', timestamp: '2026-09-20T08:00:00Z', agent: 'codex', model: 'test',
+    trigger: 'user-prompt', status: 'proposed', approver_type: 'app', rules_version: 'abc123'
+  }), []);
+});
+test('rejects approver_type outside the enum', () => {
+  const bad = valid.replace('status: proposed', 'status: proposed\napprover_type: robot');
+  assert.ok(validateAgdr(bad).some((item) => item.path === 'frontmatter.approver_type'));
+});
 test('reports missing frontmatter', () => {
   assert.equal(validateAgdr('# No frontmatter')[0].path, 'frontmatter');
 });

@@ -14,6 +14,8 @@
     "session": { "type": "string", "description": "Optional session identifier for traceability." },
     "trigger": { "type": "string", "enum": ["user-prompt", "hook", "automation", "self-initiated"], "description": "What initiated the decision." },
     "status": { "type": "string", "enum": ["proposed", "executed", "superseded", "deprecated"], "description": "Current state of the decision." },
-    "supersedes": { "type": "string", "pattern": "^AgDR-[0-9]{4,}$", "description": "Optional ID of the AgDR this one replaces." }
+    "supersedes": { "type": "string", "pattern": "^AgDR-[0-9]{4,}$", "description": "Optional ID of the AgDR this one replaces." },
+    "approver_type": { "type": "string", "enum": ["human", "agent", "app"], "description": "Optional kind of party that approved the decision." },
+    "rules_version": { "type": "string", "minLength": 1, "description": "Optional commit SHA or content hash of the approval rules in force when the decision was approved." }
   }
 }
